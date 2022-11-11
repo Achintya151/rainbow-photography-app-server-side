@@ -47,6 +47,20 @@ const run = async () => {
             const reviews = await cursor.toArray();
             res.send(reviews)
         })
+        app.get('/myreviews', async (req, res) => {
+            const email = req.query.email;
+            const query = { email: email }
+            const cursor = reviewCollection.find(query);
+            const reviews = await cursor.toArray();
+            res.send(reviews)
+        })
+
+        // add service api
+        app.post('/services', async (req, res) => {
+            const service = req.body;
+            const result = await serviceCollection.insertOne(service);
+            res.send(result)
+        })
     }
     finally {
 
